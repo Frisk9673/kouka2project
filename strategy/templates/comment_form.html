@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Comment Form{% endblock %}
+{% block contents %}
+
+  <!-- 追加 -->
+<div class="container">
+    <div class="row">
+        <div class="col offset-2">
+            
+            <div class="comment-form">
+                <h2>コメント投稿</h2>
+                <!-- コメント作成用のURLを渡す -->
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <td>{{ form.text }}</td>
+                        </tr>
+        
+                    </table>
+                    <div>
+                        <button type="submit">送信</button>
+                    </div>
+                    
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

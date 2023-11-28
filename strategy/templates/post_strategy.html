@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Post{% endblock %}
+
+{% block contents %}
+
+<br>
+<div class="container">
+
+    <div class="row">
+
+        <div class="col offset-2">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <table>
+
+                    <tr>
+                        <th>カテゴリ</th>
+                        <td>{{ form.category }}</td>
+                    </tr>
+                    <tr>
+                        <th>タイトル</th>
+                        <td>{{ form.title }}</td>
+                    </tr>
+                    <tr>
+                        <th>攻略方法</th>
+                        <td>{{ form.strategy }}</td>
+                    </tr>
+                    <tr>
+                        <th>画像1</th>
+                        <td>{{ form.image1 }}</td>
+                    </tr>
+                    <tr>
+                        <th>画像2</th>
+                        <td>{{ form.image2 }}</td>
+                    </tr>
+                    <tr>
+                        <th>画像3</th>
+                        <td>{{ form.image3 }}</td>
+                    </tr>
+                    <tr>
+                        <th>画像4</th>
+                        <td>{{ form.image4 }}</td>
+                    </tr>
+
+                </table>
+                <h3>画像の横幅は750pxまででお願いします。<br>
+                    見づらくなってしまうのを防止するためですのでご協力お願いいたします。</h3>
+                <hr>
+
+                <button type="submit">投稿する</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}Strategy Detail{% endblock %}
+    {% block contents %}
+    <br>
+        <div class="container">
+            <div class="row">
+                <div class="col offset-3">
+                    <h2>{{detail.title}}</h2>
+                    <p>{{detail.strategy}}</p>
+                    <br>
+                    <p>{{detail.posted_at}}に投稿</p>
+                    <p><img src="{{ detail.image1.url }}"></img></p>
+                    {% if detail.image2 %}
+                        <p><img src="{{ detail.image2.url }}"></img></p>
+                    {% endif %}
+                    {% if detail.image3 %}
+                        <p><img src="{{ detail.image3.url }}"></img></p>
+                    {% endif %}
+                    {% if detail.image4 %}
+                        <p><img src="{{ detail.image4.url }}"></img></p>
+                    {% endif %}
+
+                    {% if request.user == detail.user %}
+                    <form method="POST">
+                    <a href="{% url 'strategy:strategy_delete' detail.pk %}"
+                       class="btn btn-primary my-2">削除する</a>
+                    </form>
+                    {% endif %}
+                    {% if request.user == detail.user %}
+                    <form method="POST">
+                    <a href="{% url 'strategy:strategy_update' detail.pk %}"
+                       class="btn btn-primary my-2">更新する</a>
+                    </form>
+                    {% endif %}
+                    <form>
+                        <div class="card-body">
+                            <p class="card-text">
+                            <h2>コメント</h2>
+                            {% for comment in comments %}
+                            <p>{{ comment.user }}</p>
+                            <div class="comment-text">
+                              <h5>{{ comment.text }}</h5>
+                            </div>
+
+
+                            {% if request.user == detail.user %}
+                            <form method="POST">
+                            <a href="{% url 'strategy:comment_delete' comment.pk %}"
+                                class="btn btn-primary my-2">コメントを削除する</a>
+                            </form>
+                            {% endif %}
+                            {% if request.user == detail.user %}
+                            <form method="POST">
+                            <a href="{% url 'strategy:comment_update' comment.pk %}"
+                                class="btn btn-primary my-2">コメントを更新する</a>
+                            </form>
+                            {% endif %}
+                            {% endfor %}
+                            <hr>
+                        
+                        </div>
+                      <!-- 追加 -->
+                        <div class="comment-form">
+                            <h2>コメント投稿</h2>
+                        <!-- コメント作成用のURLを渡す -->
+                            <type="text" id="detail_id" name="detail_id" value="{{ object.id }}">
+                            <a class="btn btn-success col-3 offset-2" href="{% url 'strategy:comment_create' detail.id %}">コメント送信フォームはこちら</a>
+                        </div>
+                    </form>
+                    
+
+                </div>
+            </div>
+        </div>
+    {% endblock %}

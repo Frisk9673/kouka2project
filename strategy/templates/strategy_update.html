@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Strategy Delete{% endblock %}
+    {% block contents %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col offset-3">
+                <form method="POST">
+                    {% csrf_token %}
+                    <table>
+                        <br>
+                        <tr>
+                            <th>タイトル</th>
+                            <td>{{ form.title }}</td>
+                        </tr>
+                        <tr>
+                            <th>攻略法</th>
+                            <td>{{ form.strategy }}</td>
+                        </tr>
+                        
+                        
+                    </table>
+                    <p>変更してもいいですか？</p>
+                    <button class="btn btn-primary my-2"
+                            type="submit">変更</button>
+                    <a href="{% url 'strategy:strategy_detail' object.pk %}"
+                       class="btn btn-secondary my-2">キャンセル</a>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
