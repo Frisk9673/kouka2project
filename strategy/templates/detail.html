@@ -37,9 +37,10 @@
                             <p class="card-text">
                             <h2>コメント</h2>
                             {% for comment in comments %}
-                            <p>{{ comment.user }}</p>
+                            <hr>
+                            <h6>{{ comment.user }}</h6>
                             <div class="comment-text">
-                              <h5>{{ comment.text }}</h5>
+                              <h4>{{ comment.text }}</h4>
                             </div>
 
 
@@ -55,8 +56,8 @@
                                 class="btn btn-primary my-2">コメントを更新する</a>
                             </form>
                             {% endif %}
-                            {% endfor %}
                             <hr>
+                            {% endfor %}
                         
                         </div>
                       <!-- 追加 -->
@@ -65,14 +66,14 @@
                         <!-- コメント作成用のURLを渡す -->
                             {% if user.is_authenticated %}
                             <type="text" id="detail_id" name="detail_id" value="{{ object.id }}">
-                            <a class="btn btn-success col-3 offset-2" href="{% url 'strategy:comment_create' detail.id %}">コメント送信フォームはこちら</a>
+                            <a class="btn btn-success col-3" href="{% url 'strategy:comment_create' detail.id %}">コメント送信フォームはこちら</a>
                             {% else %}
                             <h4>アカウントにログインしていません、<br>
                                 アカウントにログインしてからコメントが投稿できます。</h4>
-                            <a class="btn btn-success col-3 offset-2" href="{% url 'accounts:login' %}">
+                            <a class="btn btn-success col-3" href="{% url 'accounts:login' %}">
                                 ログインページはこちら</a>
                             <h5>※アカウントを作成していない場合はこちらからサインアップをしてください。</h5>
-                            <a class="btn btn-success col-3 offset-2" href="{% url 'accounts:signup' %}">
+                            <a class="btn btn-success col-3" href="{% url 'accounts:signup' %}">
                                 サインアップはこちら
                             </a>
                             {% endif %}
