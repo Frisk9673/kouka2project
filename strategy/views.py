@@ -79,7 +79,7 @@ class MypageView(ListView):
 class StrategyDeleteView(DeleteView):
     model = StrategyPost
     template_name ='strategy_delete.html'
-    success_url = reverse_lazy('strategy:mypage')
+    success_url = reverse_lazy('strategy:index')
     def delete(self, request, *args, **kwargs):
         return super().delete(request, *args, **kwargs)
     
@@ -87,7 +87,7 @@ class StrategyUpdateView(UpdateView):
     model = StrategyPost
     template_name = 'strategy_update.html'
     fields = ['title', 'strategy']
-    success_url = reverse_lazy('strategy:mypage')
+    success_url = reverse_lazy('strategy:index')
 
 from django.views.generic import FormView
 from .forms import ContactForm

@@ -61,10 +61,21 @@
                         </div>
                       <!-- 追加 -->
                         <div class="comment-form">
-                            <h2>コメント投稿</h2>
+                            <h2>【コメント投稿】</h2>
                         <!-- コメント作成用のURLを渡す -->
+                            {% if user.is_authenticated %}
                             <type="text" id="detail_id" name="detail_id" value="{{ object.id }}">
                             <a class="btn btn-success col-3 offset-2" href="{% url 'strategy:comment_create' detail.id %}">コメント送信フォームはこちら</a>
+                            {% else %}
+                            <h4>アカウントにログインしていません、<br>
+                                アカウントにログインしてからコメントが投稿できます。</h4>
+                            <a class="btn btn-success col-3 offset-2" href="{% url 'accounts:login' %}">
+                                ログインページはこちら</a>
+                            <h5>※アカウントを作成していない場合はこちらからサインアップをしてください。</h5>
+                            <a class="btn btn-success col-3 offset-2" href="{% url 'accounts:signup' %}">
+                                サインアップはこちら
+                            </a>
+                            {% endif %}
                         </div>
                     </form>
                     

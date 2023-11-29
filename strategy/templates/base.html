@@ -13,7 +13,7 @@
     <!-- ヘッダー情報のタイトルを個別に設定できるようにする-->
     <title>{% block title %}攻略情報投稿サイト{% endblock %}</title>
     <link rel="icon" type="image/x-icon"
-          href="{% static 'assets/favicon.ico' %}" />
+          href="{% static 'assets/game.ico' %}" />
 
     <!-- Bootstrap core CSS -->
     <!-- Bootstrap core CSSを読み込むコードをBootstrapからコピー-->
@@ -71,8 +71,6 @@
                        class="text-white">ログアウト</a></li>
                 <li><a href="{% url 'password_reset' %}"
                        class="text-white">パスワードのリセット</a></li>
-                <li><a href="mailto:admin@example.com"
-                       class="text-white">Email me</a></li>
                 <li><a href="{% url 'strategy:contact' %}"
                       class="text-white">お問い合わせ</a></li>
                 {% else %}
@@ -81,8 +79,8 @@
                        class="text-white">サインアップ</a></li>
                 <li><a href="{% url 'accounts:login' %}"
                        class="text-white">ログイン</a></li>
-                <li><a href="mailto:admin@example.com"
-                       class="text-white">Email me</a></li>
+                       <li><a href="{% url 'strategy:contact' %}"
+                        class="text-white">お問い合わせ</a></li>
                 {% endif %}
               </ul>
             </div>
@@ -95,7 +93,13 @@
           <!-- トップページへのリンク-->
           <a href="{% url 'strategy:index' %}"
              class="navbar-brand d-flex align-items-center">
-            <svg xmlns="http://www.w3.org/2000/svg"
+             <svg
+xmlns="http://www.w3.org/2000/svg"
+x="0px" y="0px"
+width="30" height="30"
+viewBox="0 0 172 172"
+style=" fill:#26e07f;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#1fb141"><path d="M21.5,21.5v129h64.5v-32.25v-64.5v-32.25zM86,53.75c0,17.7805 14.4695,32.25 32.25,32.25c17.7805,0 32.25,-14.4695 32.25,-32.25c0,-17.7805 -14.4695,-32.25 -32.25,-32.25c-17.7805,0 -32.25,14.4695 -32.25,32.25zM118.25,86c-17.7805,0 -32.25,14.4695 -32.25,32.25c0,17.7805 14.4695,32.25 32.25,32.25c17.7805,0 32.25,-14.4695 32.25,-32.25c0,-17.7805 -14.4695,-32.25 -32.25,-32.25z"></path></g></g></svg>
+            <!-- <svg xmlns="http://www.w3.org/2000/svg"
                  width="20" height="20" fill="none"
                  stroke="currentColor"
                  stroke-linecap="round"
@@ -105,7 +109,7 @@
                  class="me-2"
                  viewBox="0 0 24 24">
                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                 <circle cx="12" cy="13" r="4"/></svg>
+                 <circle cx="12" cy="13" r="4"/></svg> -->
             <!-- リンクテキスト-->
             <strong>攻略情報一覧</strong>
           </a>
