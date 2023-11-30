@@ -50,12 +50,12 @@ urlpatterns = [
          views.CommentSuccessView.as_view(),
          name='comment_done'),
 
-     path('strategy-detail/<int:pk>/comment/delete/',
+     path('strategy-detail/<int:pk>/comment/<int:id>/delete/',
          views.CommentDeleteView.as_view(),
          name = 'comment_delete'
          ),
 
-     path('strategy-detail/<int:pk>/comment/update/',
+     path('strategy-detail/<int:pk>/comment/<int:id>/update/',
          views.CommentUpdateView.as_view(),
          name = 'comment_update'
          ),

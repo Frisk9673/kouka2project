@@ -11,6 +11,13 @@ from .models import StrategyPost
 from django.views.generic import DetailView
 from django.views.generic import DeleteView
 from django.views.generic import UpdateView
+from django.views.generic import FormView
+from .forms import ContactForm
+from django.contrib import messages
+from django.core.mail import EmailMessage
+from .models import Comment
+from .forms import CommentCreateForm  
+from django.shortcuts import redirect, get_object_or_404 , resolve_url
 
 
 
@@ -89,10 +96,7 @@ class StrategyUpdateView(UpdateView):
     fields = ['title', 'strategy']
     success_url = reverse_lazy('strategy:index')
 
-from django.views.generic import FormView
-from .forms import ContactForm
-from django.contrib import messages
-from django.core.mail import EmailMessage
+#---------------------------------------------------
 
 class ContactView(FormView):
     template_name ='contact.html'
@@ -130,9 +134,6 @@ class ContactView(FormView):
         return super().form_valid(form)
     
 #----------------------------------------------------
-from .models import Comment
-from .forms import CommentCreateForm  
-from django.shortcuts import redirect, get_object_or_404 , resolve_url
 
 class CommentCreate(CreateView):
     template_name = 'comment_form.html'
@@ -162,14 +163,27 @@ class CommentSuccessView(TemplateView):
 class CommentDeleteView(DeleteView):
     model = Comment
     template_name ='comment_delete.html'
+    success_url = reverse_lazy('strategy:strategy_detail')
     def delete(self, request, *args, **kwargs):
         return super().delete(request, *args, **kwargs)
-    def get_success_url(self):
-        return resolve_url('strategy:strategy_detail', pk=self.kwargs['pk'])
     
 class CommentUpdateView(UpdateView):
-    model = Comment
+    # model = StrategyPost
+    model = StrategyPost
     template_name = 'comment_update.html'
     fields = ['text']
-    def get_success_url(self):
-        return resolve_url('strategy:strategy_detail', pk=self.kwargs['pk'])
+    success_url = reverse_lazy('strategy:strategy_detail')
+    def get_queryset(self):
+        articles = StrategyPost.objects.filter(comment=self.request.user).prefetch_related('text')
+        return articles
+#----------------------------------------------------
+    # def get_context_data(self, **kwargs):
+    #     post_pk = self.kwargs['pk']
+    #     context = super().get_context_data(**kwargs)
+    #     # テンプレートにコメント作成フォームを渡す
+    #     detail = get_object_or_404(StrategyPost, pk=post_pk)
+    #     context = {
+    #             "detail": detail,
+    #             "comments": Comment.objects.filter(target=detail.id)   #該当記事のコメントだけを渡します。
+    #     }
+    #     return context
