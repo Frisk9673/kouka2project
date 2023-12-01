@@ -46,14 +46,14 @@
 
                             {% if request.user == detail.user %}
                             <form method="POST">
-                            <a href="{% url 'strategy:comment_delete' detail.pk comment.id %}"
-                                class="btn btn-primary my-2">コメントを削除する</a>
+                                <a href="{% url 'strategy:comment_delete' detail.pk comment.id %}"
+                                    class="btn btn-primary my-2">コメントを削除する</a>
                             </form>
                             {% endif %}
                             {% if request.user == detail.user %}
                             <form method="POST">
-                            <a href="{% url 'strategy:comment_update' detail.pk comment.id %}"
-                                class="btn btn-primary my-2">コメントを更新する</a>
+                                <a href="{% url 'strategy:comment_update' detail.pk comment.id %}"
+                                    class="btn btn-primary my-2">コメントを更新する</a>
                             </form>
                             {% endif %}
                             <hr>

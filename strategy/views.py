@@ -17,7 +17,7 @@ from django.contrib import messages
 from django.core.mail import EmailMessage
 from .models import Comment
 from .forms import CommentCreateForm  
-from django.shortcuts import redirect, get_object_or_404 , resolve_url
+from django.shortcuts import redirect, get_object_or_404
 
 
 
@@ -168,15 +168,24 @@ class CommentDeleteView(DeleteView):
         return super().delete(request, *args, **kwargs)
     
 class CommentUpdateView(UpdateView):
-    # model = StrategyPost
-    model = StrategyPost
+    model = Comment
     template_name = 'comment_update.html'
     fields = ['text']
     success_url = reverse_lazy('strategy:strategy_detail')
-    def get_queryset(self):
-        articles = StrategyPost.objects.filter(comment=self.request.user).prefetch_related('text')
-        return articles
-#----------------------------------------------------
+
+    def form_valid(self, form):
+        post_pk = self.kwargs['pk']
+        post = get_object_or_404(StrategyPost, pk=post_pk)
+        comment = form.save(commit=False)
+        comment.user = self.request.user
+        comment.target = post
+        comment.save()
+        self.object = comment
+        return redirect('strategy:strategy_detail', pk=post_pk)
+
+    # def get_queryset(self):
+    #     comment = StrategyPost.objects.filter(id=Comment.objects.get(id))
+    #     return comment
     # def get_context_data(self, **kwargs):
     #     post_pk = self.kwargs['pk']
     #     context = super().get_context_data(**kwargs)
