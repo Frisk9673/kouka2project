@@ -18,6 +18,7 @@ from django.core.mail import EmailMessage
 from .models import Comment
 from .forms import CommentCreateForm  
 from django.shortcuts import redirect, get_object_or_404
+from datetime import datetime
 
 
 
@@ -149,7 +150,7 @@ class CommentCreate(CreateView):
         comment.target = post
         comment.save()
         self.object = comment
-        return redirect('strategy:comment_done', pk=post_pk)
+        return redirect('strategy:strategy_detail', pk=post_pk)
     
     def get_context_data(self, **kwargs):    
     # def post(self, request, **kwargs):
@@ -157,35 +158,43 @@ class CommentCreate(CreateView):
         context['strategy'] = get_object_or_404(StrategyPost, pk=self.kwargs['pk'])
         return context
 
-class CommentSuccessView(TemplateView):
-    template_name = 'comment_form_success.html'
 
 class CommentDeleteView(DeleteView):
     model = Comment
     template_name ='comment_delete.html'
-    success_url = reverse_lazy('strategy:strategy_detail')
+    success_url = reverse_lazy('strategy:index')
     def delete(self, request, *args, **kwargs):
-        # return super().delete(request, *args, **kwargs)
-        post_pk = self.kwargs['pk']
+        return super().delete(request, *args, **kwargs)
+    
+        # post_pk = self.kwargs['pk']
         
-        return redirect('strategy:strategy_detail', pk=post_pk)
+        # return redirect('strategy:strategy_detail', pk=post_pk)
     
     
 class CommentUpdateView(UpdateView):
     model = Comment
     template_name = 'comment_update.html'
     fields = ['text']
-    success_url = reverse_lazy('strategy:strategy_detail')
-
+    success_url = reverse_lazy('strategy:index')
     def form_valid(self, form):
-        post_pk = self.kwargs['pk']
-        post = get_object_or_404(StrategyPost, pk=post_pk)
-        comment = form.save(commit=False)
-        comment.user = self.request.user
-        comment.target = post
-        comment.save()
-        self.object = comment
-        return redirect('strategy:strategy_detail', pk=post_pk)
+        postdata = form.save(commit=False)
+        postdata.save()
+        return super().form_valid(form)
+
+    # def form_valid(self, form):
+    #     post_pk = self.kwargs['pk']
+    #     post = get_object_or_404(StrategyPost, pk=post_pk)
+    #     comment = form.save(commit=False)
+    #     comment.user = self.request.user
+    #     comment.target = post
+    #     comment.save()
+    #     self.object = comment
+    #     return redirect('strategy:strategy_detail', pk=post_pk)
+    # def get_context_data(self, **kwargs):    
+    # # def post(self, request, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['strategy'] = get_object_or_404(StrategyPost, pk=self.kwargs['pk'])
+    #     return context
 
     # def get_queryset(self):
     #     comment = StrategyPost.objects.filter(id=Comment.objects.get(id))
