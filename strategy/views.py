@@ -165,7 +165,11 @@ class CommentDeleteView(DeleteView):
     template_name ='comment_delete.html'
     success_url = reverse_lazy('strategy:strategy_detail')
     def delete(self, request, *args, **kwargs):
-        return super().delete(request, *args, **kwargs)
+        # return super().delete(request, *args, **kwargs)
+        post_pk = self.kwargs['pk']
+        
+        return redirect('strategy:strategy_detail', pk=post_pk)
+    
     
 class CommentUpdateView(UpdateView):
     model = Comment
